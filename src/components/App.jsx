@@ -22,6 +22,21 @@ export class App extends Component {
       contacts: PropTypes.array,
       filter: PropTypes.string,
   };
+
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const contactsParse = JSON.parse(contacts);
+
+    if (contactsParse) {
+      this.setState({contacts:contactsParse})
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
     deleteContacts = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),

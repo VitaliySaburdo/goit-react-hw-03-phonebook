@@ -28,9 +28,7 @@ export class App extends Component {
 
     if (contactsParse !== null) {
       this.setState({ contacts: contactsParse });
-    } else {
-      this.setState({ contacts: this.state.contacts });
-    }
+    } 
   }
 
   componentDidUpdate(_, prevState) {

@@ -5,8 +5,7 @@ import { Section } from './Section/Section';
 import { RenderContacts } from './RenderContactsList/RenderContactsList';
 import Filter from './Filter/Filter';
 import PropTypes from 'prop-types';
-import {Container} from './App.styled'
-
+import { Container } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -18,9 +17,9 @@ export class App extends Component {
     ],
     filter: '',
   };
-    static propTypes = {
-      contacts: PropTypes.array,
-      filter: PropTypes.string,
+  static propTypes = {
+    contacts: PropTypes.array,
+    filter: PropTypes.string,
   };
 
   componentDidMount() {
@@ -28,9 +27,9 @@ export class App extends Component {
     const contactsParse = JSON.parse(contacts);
 
     if (contactsParse !== null) {
-      this.setState({contacts:contactsParse})
+      this.setState({ contacts: contactsParse });
     } else {
-      this.setState({contacts:this.state.contacts})
+      this.setState({ contacts: this.state.contacts });
     }
   }
 
@@ -39,7 +38,7 @@ export class App extends Component {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
-    deleteContacts = id => {
+  deleteContacts = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
@@ -52,18 +51,16 @@ export class App extends Component {
       number,
     };
 
-     const isNameInContact = this.state.contacts.find(
+    const isNameInContact = this.state.contacts.find(
       contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
     );
 
-     if (isNameInContact) {
-     return alert(`${name} is already in contacts`);
+    if (isNameInContact) {
+      return alert(`${name} is already in contacts`);
     }
-      this.setState(({ contacts }) => ({
+    this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
-    }))
-      
-    ;
+    }));
   };
 
   changeFilter = e => {
@@ -78,11 +75,14 @@ export class App extends Component {
     );
     return (
       <Container>
-        <Section title="Phonebook"/>
-          <ContactForm onSubmit={this.formSubmitHendler} />
-        <Section title="Contacts"/>
-          <Filter value={filter} onChange={this.changeFilter} />
-          <RenderContacts contacts={visibleContact}  onDelete={this.deleteContacts}/>
+        <Section title="Phonebook" />
+        <ContactForm onSubmit={this.formSubmitHendler} />
+        <Section title="Contacts" />
+        <Filter value={filter} onChange={this.changeFilter} />
+        <RenderContacts
+          contacts={visibleContact}
+          onDelete={this.deleteContacts}
+        />
       </Container>
     );
   }
